@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Do The Quest</title>
+
+		<script type="text/javascript" src="js/phaser.js"></script>
+		<script type="text/javascript" src="js/states/boot.js"></script>
+		<script type="text/javascript" src="js/states/preloader.js"></script>
+		<script type="text/javascript" src="js/states/menu.js"></script>
+		<script type="text/javascript" src="js/states/game.js"></script>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+		window.onload = function() {
+			var game = new Phaser.Game(800, 600, Phaser.CANVAS, "gameContainer");
+			var map;
+			var layer;
+			var scoreDiamond = 0;
+			var scoreDiamondText = '';
+			var bulletTime = 0;
+			var rotation = 0;
+
+			game.state.add('boot', BasicGame.boot);
+			game.state.add('preloader', BasicGame.preloader);
+			game.state.add('menu', BasicGame.menu);
+			game.state.add('game', BasicGame.game);
+
+			game.state.start('boot');
+		};
+		</script>
+		<div id="gameContainer"></div>
+	</body>
+</html>
