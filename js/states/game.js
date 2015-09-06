@@ -42,7 +42,7 @@ BasicGame.game.prototype = {
         this.diamonds.physicsBodyType = Phaser.Physics.ARCADE;
         this.createDiamonds();
 
-		this.player = this.game.add.sprite(50, 50, 'player');
+		this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'player');
 		this.game.physics.arcade.enable(this.player);
         this.player.body.collideWorldBounds = true;
         this.player.anchor.setTo(0.5, 0.5);
@@ -88,6 +88,24 @@ BasicGame.game.prototype = {
         }
 	},
 
+	tirDroit : function() {
+		if(this.skey.isDown){
+        			this.player.animations.stop();
+        			this.player.body.velocity.x = 0;
+        			this.player.body.velocity.y = 0;
+        			this.player.animations.play('tirDroit');					
+        	}
+    },
+
+    tirGauche : function() {
+		if(this.skey.isDown){
+        			this.player.animations.stop();
+        			this.player.body.velocity.x = 0;
+        			this.player.body.velocity.y = 0;
+        			this.player.animations.play('tirGauche');					
+        	}
+    },
+
 	update : function() {
 
 		this.player.body.velocity.x = 0;
@@ -108,57 +126,22 @@ BasicGame.game.prototype = {
         
         if (this.player.body.velocity.x > 0) {
         	this.player.animations.play('droite');
-        	if(this.skey.isDown){
-        			this.player.animations.stop();
-        			this.player.body.velocity.x = 0;
-        			this.player.body.velocity.y = 0;
-        			this.player.animations.play('tirDroit');					
-        	}
+        	this.tirDroit();
         	if(this.player.body.velocity.y > 0){
-        		if(this.skey.isDown){
-        			rotation = Math.PI/4;
-        			this.player.animations.stop();
-        			this.player.body.velocity.x = 0;
-        			this.player.body.velocity.y = 0;
-        			this.player.animations.play('tirDroit');       								
-        		}
-        		
+        		this.tirDroit();      		
         	} else if(this.player.body.velocity.y < 0){
-        		if(this.skey.isDown){
-        			rotation = -Math.PI/4;
-        			this.player.animations.stop();
-        			this.player.body.velocity.x = 0;
-        			this.player.body.velocity.y = 0;
-        			this.player.animations.play('tirDroit');					
-        		}
-        		
+        		this.tirDroit();        		
         	} else {
         		rotation = 0;
         	}
         }
         if (this.player.body.velocity.x < 0) {
         	this.player.animations.play('gauche');
-        	if(this.skey.isDown){
-        			this.player.animations.stop();
-        			this.player.body.velocity.x = 0;
-        			this.player.body.velocity.y = 0;
-        			this.player.animations.play('tirGauche');
-        	}
+        	this.tirGauche();
         	if(this.player.body.velocity.y > 0){
-        		if(this.skey.isDown){
-        			rotation = 3*Math.PI/4;
-        			this.player.animations.stop();
-        			this.player.animations.play('tirGauche');
-					this.player.animations.stop();
-        		}
+        		this.tirGauche();
         	} else if(this.player.body.velocity.y < 0){
-        		if(this.skey.isDown){
-        			rotation = 5*Math.PI/4;
-        			this.player.animations.stop();
-        			this.player.body.velocity.x = 0;
-        			this.player.body.velocity.y = 0;
-        			this.player.animations.play('tirDroit');
-        		}
+        		this.tirGauche();
         	} else {
         		rotation = Math.PI;
         	}	
